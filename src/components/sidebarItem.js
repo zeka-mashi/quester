@@ -1,4 +1,4 @@
-export default function sidebarItem(icon, name) {
+export default function sidebarItem(icon, name, dataset, isDefault) {
     const item = document.createElement("div");
     item.classList.add("sidebar-item");
     const itemIcon = document.createElement("span")
@@ -6,6 +6,12 @@ export default function sidebarItem(icon, name) {
 
     const itemName = document.createElement("span");
     itemName.innerHTML = `${name}`;
+
+    if (isDefault) {
+        item.setAttribute("data-item", dataset);
+    } else {
+        item.setAttribute("data-item", `${dataset}-board`);
+    }
 
     item.appendChild(itemIcon);
     item.appendChild(itemName);

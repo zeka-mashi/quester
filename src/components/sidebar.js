@@ -38,14 +38,14 @@ export default function sidebar() {
 
     const sidebarCredit = document.createElement("div");
     sidebarCredit.classList.add("credit");
-    sidebarCredit.innerHTML = sidebarIcons.copyright + "2022 zeka-mashi" + sidebarIcons.github + sidebarIcons.web;
+    sidebarCredit.innerHTML = sidebarIcons.copyright + "2022 zeka-mashi" + "<a href='https://github.com/zeka-mashi/quester'>" + sidebarIcons.github + "</a><a href='https://davidthe.dev/'>" + sidebarIcons.web + "</a>";
     side.appendChild(sidebarCredit);
 
-    sidebarWrapper.appendChild(sidebarItem(sidebarIcons.home, "Home"));
-    sidebarWrapper.appendChild(sidebarItem(sidebarIcons.board, "All Quests"));
+    sidebarWrapper.appendChild(sidebarItem(sidebarIcons.home, "Home", "home", true));
+    sidebarWrapper.appendChild(sidebarItem(sidebarIcons.board, "All Quests", "all", true));
 
     // for future custom project/quest types
-    //sidebarWrapper.appendChild(sidebarItem(iconScroll, "Custom"));
+    //sidebarWrapper.appendChild(sidebarItem(sidebarIcons.scroll, "Custom"));
 
     return side;
 }

@@ -1,6 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Coming+Soon&family=Quicksand&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Coming+Soon&family=Quicksand:wght@700;400&display=block');
 * {
     margin: 0;
+}
+
+a {
+    display: inherit;
 }
 
 .container {
@@ -13,6 +17,7 @@
 
 .sidebar {
     font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
     width: 300px;
     display: flex;
     flex-direction: column;
@@ -25,6 +30,10 @@
     padding: 20px 0;
     background-color: rgb(146, 204, 255);
     box-shadow: -0px 3px 5px #00000040;
+}
+
+.sidebar-header h5 {
+    font-weight: 400;
 }
 
 .add-function {
@@ -67,7 +76,7 @@
     align-items: center;
     gap: 15px;
     font-size: 25px;
-    font-weight: bold;
+    font-weight: 400;
     width: fit-content;
     cursor: pointer;
 }
@@ -91,7 +100,65 @@
     height: 18px;
 }
 
+.credit a {
+    color: black;
+}
+
 .main {
     font-family: 'Coming Soon', cursive;
+    flex: 1;
+}
+
+.home {
+    font-family: sans-serif;
     display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+}
+
+.home-header {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 40px;
+}
+
+.home-header-unique {
+    font-family: 'Cinzel', serif;
+    font-size: 50px;
+}
+
+.body-wrapper {
+    margin: 40px 20% 0 20%;
+}
+
+.modal {
+    position: absolute;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #0000009e;
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+}
+
+.board-modal {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 250px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: rgb(230, 230, 230);
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.ctr {
+    text-align: center;
+}
+
+.mtb-10 {
+    margin: 10px 0;
 }
