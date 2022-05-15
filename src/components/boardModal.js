@@ -1,8 +1,18 @@
+import { modalIcons } from "./icons.js";
+
 export default function boardModal() {
     const modal = document.createElement("div");
-    modal.classList.add("modal", "hide");
+    modal.classList.add("modal");
+    const closeBtn = document.createElement("div");
+    closeBtn.innerHTML = modalIcons.close;
+    closeBtn.classList.add("close-btn");
+    closeBtn.addEventListener("click", function() {
+        modal.remove();
+    });
+    modal.appendChild(closeBtn);
+
     const wrapper = document.createElement("div");
-    wrapper.classList.add("board-modal")
+    wrapper.classList.add("board-modal", "flex-c")
     modal.appendChild(wrapper);
 
     const header = document.createElement("h2");
@@ -10,9 +20,13 @@ export default function boardModal() {
     header.textContent = "New Adventure Board";
     header.classList.add("ctr", "mtb-10");
 
+    const formWrapper = document.createElement("form");
+    formWrapper.setAttribute("id", "new-board");
+    wrapper.appendChild(formWrapper);
+
     const nameWrapper = document.createElement("div");
-    wrapper.appendChild(nameWrapper);
-    nameWrapper.classList = "input-wrapper";
+    formWrapper.appendChild(nameWrapper);
+    nameWrapper.classList.add("input-wrapper", "flex-c");
     const inputName = document.createElement("label");
     inputName.textContent = "Board Name";
     inputName.setAttribute("for", "board-name");
@@ -21,8 +35,34 @@ export default function boardModal() {
     inputField.setAttribute("type", "text");
     inputField.setAttribute("id", "board-name");
     inputField.setAttribute("name", "board-name");
+    inputField.required = true;
 
     nameWrapper.append(inputName, inputField);
+
+    const errMsg = document.createElement("p");
+    errMsg.classList.add("modal-errmsg", "hide");
+    errMsg.textContent = "That's awkward... the board already exists!";
+    formWrapper.appendChild(errMsg);
+
+    const btn = document.createElement("input");
+    wrapper.appendChild(btn);
+    btn.classList.add("modal-btn");
+    btn.setAttribute("type", "submit");
+    btn.setAttribute("form", "new-board");
+    btn.setAttribute("value", "Add Board")
+    formWrapper.addEventListener("submit", function(e) {
+        var allBoards = JSON.parse(localStorage.getItem("boards")) || [];
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(e.target).entries());
+        const index = allBoards.indexOf(data["board-name"]);
+        if (index < 0) {
+            allBoards.push(data["board-name"]);
+            localStorage.setItem("boards", JSON.stringify(allBoards));
+            modal.remove();
+        } else {
+            errMsg.classList.remove("hide");
+        }
+    });
 
 
     return modal;

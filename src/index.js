@@ -1,7 +1,7 @@
 import "./style.css";
 import sidebar from "./components/sidebar.js";
 import home from "./components/home.js";
-import boardModal from "./components/boardModal";
+import boardModal from "./components/boardModal.js";
 
 export default function app() {
     const app = document.createElement("div");
@@ -15,8 +15,6 @@ export default function app() {
     app.appendChild(main);
 
     main.appendChild(home());
-
-    app.appendChild(boardModal());
 
     return app;
 }

@@ -24,7 +24,7 @@ const config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Todo App',
+            title: 'Quester - RPG Todo App',
         })
     ]
 };

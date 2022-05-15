@@ -1,6 +1,6 @@
 export default function home() {
     const page = document.createElement("div");
-    page.classList.add("home")
+    page.classList.add("home", "flex-c")
 
     const headerWrapper = document.createElement("div");
     page.appendChild(headerWrapper);

@@ -5,7 +5,7 @@ import addQuestBoard from "./addQuestBoard.js";
 
 export default function sidebar() {
     const side = document.createElement("div");
-    side.classList.add("sidebar");
+    side.classList.add("sidebar", "flex-c");
 
     const header = document.createElement("h1");
     header.textContent = "Quester"
@@ -33,7 +33,7 @@ export default function sidebar() {
     side.appendChild(addWrapper);
 
     const sidebarWrapper = document.createElement("div");
-    sidebarWrapper.classList.add("sidebar-wrapper");
+    sidebarWrapper.classList.add("sidebar-wrapper", "flex-c");
     side.appendChild(sidebarWrapper);
 
     const sidebarCredit = document.createElement("div");
