@@ -1,7 +1,6 @@
 import "./style.css";
 import sidebar from "./components/sidebar.js";
 import home from "./components/home.js";
-import boardModal from "./components/boardModal.js";
 
 export default function app() {
     const app = document.createElement("div");
@@ -12,6 +11,8 @@ export default function app() {
 
     const main = document.createElement("div");
     main.classList.add("main");
+    main.setAttribute("data-board", "home");
+
     app.appendChild(main);
 
     main.appendChild(home());

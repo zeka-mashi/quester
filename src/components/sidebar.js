@@ -25,10 +25,12 @@ export default function sidebar() {
     const newQuest = document.createElement("div");
     newQuest.innerHTML = sidebarIcons.plus + "New Quest";
     newQuest.addEventListener("click", addQuest);
+    newQuest.classList.add("new-func", "disabled");
     addWrapper.appendChild(newQuest);
     const newQuestBoard = document.createElement("div");
     newQuestBoard.innerHTML = sidebarIcons.plusBox + "New Board";
     newQuestBoard.addEventListener("click", addQuestBoard);
+    newQuestBoard.classList.add("new-func");
     addWrapper.appendChild(newQuestBoard);
     side.appendChild(addWrapper);
 
@@ -44,8 +46,10 @@ export default function sidebar() {
     sidebarWrapper.appendChild(sidebarItem(sidebarIcons.home, "Home", "home", true));
     sidebarWrapper.appendChild(sidebarItem(sidebarIcons.board, "All Quests", "all", true));
 
-    // for future custom project/quest types
-    //sidebarWrapper.appendChild(sidebarItem(sidebarIcons.scroll, "Custom"));
+    var allBoards = JSON.parse(localStorage.getItem("boards")) || [];
+    for (let i = 0; i < allBoards.length; i++) {
+        sidebarWrapper.appendChild(sidebarItem(sidebarIcons.scroll, allBoards[i], `${allBoards[i]}`));
+    }
 
     return side;
 }

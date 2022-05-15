@@ -1,3 +1,5 @@
+import { checkAddAbility } from "./util.js";
+
 export default function sidebarItem(icon, name, dataset, isDefault) {
     const item = document.createElement("div");
     item.classList.add("sidebar-item");
@@ -15,6 +17,12 @@ export default function sidebarItem(icon, name, dataset, isDefault) {
 
     item.appendChild(itemIcon);
     item.appendChild(itemName);
+
+    item.addEventListener("click", function() {
+        const main = document.getElementsByClassName("main")[0];
+        main.setAttribute("data-board", item.getAttribute("data-item"));
+        checkAddAbility();
+    })
 
     return item;
 }

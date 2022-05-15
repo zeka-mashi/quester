@@ -167,6 +167,19 @@ a {
     padding: 20px;
 }
 
+.quest-modal {
+    width: 300px;
+    height: 430px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: rgb(230, 230, 230);
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+}
+
 .ctr {
     text-align: center;
 }
@@ -175,8 +188,13 @@ a {
     margin: 10px 0;
 }
 
-.input-wrapper {
+#new-board .input-wrapper {
     width: 50%;
+    margin-top: 20px;
+}
+
+#new-quest .input-wrapper {
+    width: 100%;
     margin-top: 20px;
 }
 
@@ -193,7 +211,7 @@ a {
     margin-top: 5px;
 }
 
-.board-modal form {
+.modal form {
     flex: 1;
 }
 
@@ -209,4 +227,15 @@ a {
 
 .hide {
     display: none;
+}
+
+.disabled {
+    background-color: lightgray;
+    color: gray;
+    cursor: default;
+    pointer-events: none;
+}
+
+textarea {
+    resize: none;
 }

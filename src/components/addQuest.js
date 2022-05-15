@@ -1,3 +1,6 @@
+import questModal from "./questModal.js";
+
 export default function addQuest() {
-    console.log("new quest!")
+    const container = document.getElementsByClassName("container")[0];
+    container.appendChild(questModal());
 }

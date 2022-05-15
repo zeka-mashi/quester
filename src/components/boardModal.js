@@ -1,15 +1,7 @@
-import { modalIcons } from "./icons.js";
+import createModal from "./createModal.js";
 
 export default function boardModal() {
-    const modal = document.createElement("div");
-    modal.classList.add("modal");
-    const closeBtn = document.createElement("div");
-    closeBtn.innerHTML = modalIcons.close;
-    closeBtn.classList.add("close-btn");
-    closeBtn.addEventListener("click", function() {
-        modal.remove();
-    });
-    modal.appendChild(closeBtn);
+    const modal = createModal();
 
     const wrapper = document.createElement("div");
     wrapper.classList.add("board-modal", "flex-c")
