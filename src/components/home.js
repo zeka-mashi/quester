@@ -18,7 +18,8 @@ export default function home() {
     const description = document.createElement("p");
     description.innerHTML = `Quester is a fun web app to manage your to-do items
     in RPG-styled messaging. Create to-do's with <b>action elements</b>, start new 
-    <b>adventuring boards</b>, and <b>defeat bosses</b>.`;
+    <b>adventuring boards</b>, and <b>defeat bosses</b>.<br><br>It looks like you don't have 
+    any quests (todos) added yet. Try adding a new board and add your first quest!`;
     bodyWrapper.appendChild(description);
 
     return page;

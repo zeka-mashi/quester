@@ -47,19 +47,76 @@ export default function questModal() {
 
     descWrapper.append(inputDesc, descInput);
 
+    const rowWrap = document.createElement("div");
+    rowWrap.classList.add("flex-r", "fg-40");
+
+    formWrapper.appendChild(rowWrap);
+
+    const dateWrapper = document.createElement("div");
+    rowWrap.appendChild(dateWrapper);
+    dateWrapper.classList.add("input-wrapper", "flex-c");
+    const datePicker = document.createElement("label");
+    datePicker.textContent = "Due Date";
+    datePicker.setAttribute("for", "date-picker");
+    const datePickerInput = document.createElement("input");
+    datePickerInput.setAttribute("type", "date");
+    datePickerInput.setAttribute("id", "date-picker");
+    datePickerInput.setAttribute("name", "date-picker");
+    datePickerInput.required = true;
+
+    dateWrapper.append(datePicker, datePickerInput);
+
+    const priorityWrapper = document.createElement("div");
+    rowWrap.appendChild(priorityWrapper);
+    priorityWrapper.classList.add("input-wrapper", "flex-c");
+    const inputPriority = document.createElement("label");
+    inputPriority.textContent = "Priority Level";
+    inputPriority.setAttribute("for", "quest-priority");
+
+    const dropdownPriority = document.createElement("select");
+    dropdownPriority.setAttribute("id", "quest-priority");
+    dropdownPriority.setAttribute("name", "quest-priority");
+    dropdownPriority.classList.add("ma-0");
+
+    const priorityLow = document.createElement("option");
+    priorityLow.setAttribute("value", "Low");
+    priorityLow.selected = true;
+    priorityLow.textContent = "Low";
+    dropdownPriority.appendChild(priorityLow);
+
+    const priorityMed = document.createElement("option");
+    priorityMed.setAttribute("value", "Medium");
+    priorityMed.selected = true;
+    priorityMed.textContent = "Medium";
+    dropdownPriority.appendChild(priorityMed);
+
+    const priorityHigh = document.createElement("option");
+    priorityHigh.setAttribute("value", "High");
+    priorityHigh.selected = true;
+    priorityHigh.textContent = "High";
+    dropdownPriority.appendChild(priorityHigh);
+
+    priorityWrapper.append(inputPriority, dropdownPriority);
+
     const boardWrapper = document.createElement("div");
     formWrapper.appendChild(boardWrapper);
     boardWrapper.classList.add("input-wrapper", "flex-c");
     const inputDropdown = document.createElement("label");
-    inputDropdown.textContent = "Adenture Board";
+    inputDropdown.textContent = "Adventure Board";
     inputDropdown.setAttribute("for", "quest-board");
 
     const dropdownInput = document.createElement("select");
     dropdownInput.setAttribute("id", "quest-board");
     dropdownInput.setAttribute("name", "quest-board");
-    dropdownInput.required = true;
+    dropdownInput.disabled = true;
 
-    // need to implement <options>
+    //get current board
+    const board = document.getElementsByClassName("main")[0].getAttribute("data-board");
+    const dropdownOption = document.createElement("option");
+    dropdownOption.setAttribute("value", board);
+    dropdownOption.selected = true;
+    dropdownOption.textContent = board;
+    dropdownInput.appendChild(dropdownOption);
 
     boardWrapper.append(inputDropdown, dropdownInput);
 

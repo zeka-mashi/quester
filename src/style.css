@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Coming+Soon&family=Quicksand:wght@700;400&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Coming+Soon&family=Quicksand:wght@400;700&display=block');
 * {
     margin: 0;
 }
@@ -7,9 +7,22 @@ a {
     display: inherit;
 }
 
+.nos {
+    user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
 .flex-c {
     display: flex;
     flex-direction: column;
+}
+
+.flex-r {
+    display: flex;
+    flex-direction: row;
 }
 
 .container {
@@ -45,20 +58,25 @@ a {
     margin-top: 30px;
 }
 
-.add-function div {
+.new-func {
     display: flex;
     margin: auto;
     align-items: center;
     gap: 2px;
     background-color: white;
-    padding: 2px 5px;
+    padding: 2px 6px;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.add-function svg {
+.new-func svg {
     width: 24px;
     height: 24px;
+}
+
+.new-func:hover {
+    border: 2px solid black;
+    padding: 0 4px;
 }
 
 .sidebar-header h1 {
@@ -67,7 +85,7 @@ a {
 }
 
 .sidebar-wrapper {
-    margin: 30px auto 0 50px;
+    margin: 30px 30px 0 30px;
     flex: 1;
     gap: 10px;
 }
@@ -76,16 +94,32 @@ a {
     display: flex;
     align-items: center;
     gap: 15px;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 400;
-    width: fit-content;
     cursor: pointer;
+    padding: 0 5px;
+}
+
+.item-del {
+    margin-left: auto;
 }
 
 .sidebar-item svg {
     height: 36px;
     width: 36px;
     vertical-align: bottom;
+}
+
+.item-del svg {
+    height: 20px;
+    width: 20px;
+    color: gray;
+    vertical-align: middle;
+}
+
+.active {
+    background-color: #f0f8ffad;
+    border-radius: 10px;
 }
 
 .credit {
@@ -188,6 +222,14 @@ a {
     margin: 10px 0;
 }
 
+.ma-0 {
+    margin: auto 0;
+}
+
+.fg-40 {
+    gap: 40px;
+}
+
 #new-board .input-wrapper {
     width: 50%;
     margin-top: 20px;
@@ -200,6 +242,7 @@ a {
 
 .input-wrapper label {
     font-size: 14px;
+    width: fit-content;
 }
 
 .input-wrapper input {

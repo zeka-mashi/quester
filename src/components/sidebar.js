@@ -5,7 +5,7 @@ import addQuestBoard from "./addQuestBoard.js";
 
 export default function sidebar() {
     const side = document.createElement("div");
-    side.classList.add("sidebar", "flex-c");
+    side.classList.add("sidebar", "flex-c", "nos");
 
     const header = document.createElement("h1");
     header.textContent = "Quester"
@@ -44,11 +44,10 @@ export default function sidebar() {
     side.appendChild(sidebarCredit);
 
     sidebarWrapper.appendChild(sidebarItem(sidebarIcons.home, "Home", "home", true));
-    sidebarWrapper.appendChild(sidebarItem(sidebarIcons.board, "All Quests", "all", true));
 
     var allBoards = JSON.parse(localStorage.getItem("boards")) || [];
     for (let i = 0; i < allBoards.length; i++) {
-        sidebarWrapper.appendChild(sidebarItem(sidebarIcons.scroll, allBoards[i], `${allBoards[i]}`));
+        sidebarWrapper.appendChild(sidebarItem(sidebarIcons.board, allBoards[i], `${allBoards[i]}`));
     }
 
     return side;

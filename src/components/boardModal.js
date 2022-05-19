@@ -1,4 +1,5 @@
 import createModal from "./createModal.js";
+import refreshSidebar from "./refreshSidebar.js";
 
 export default function boardModal() {
     const modal = createModal();
@@ -51,6 +52,8 @@ export default function boardModal() {
             allBoards.push(data["board-name"]);
             localStorage.setItem("boards", JSON.stringify(allBoards));
             modal.remove();
+
+            refreshSidebar(allBoards);
         } else {
             errMsg.classList.remove("hide");
         }

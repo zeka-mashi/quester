@@ -1,4 +1,6 @@
-import { checkAddAbility } from "./util.js";
+import { runSidebarChecks } from "./util.js";
+import { modalIcons } from "./icons.js";
+import refreshSidebar from "./refreshSidebar.js";
 
 export default function sidebarItem(icon, name, dataset, isDefault) {
     const item = document.createElement("div");
@@ -9,20 +11,49 @@ export default function sidebarItem(icon, name, dataset, isDefault) {
     const itemName = document.createElement("span");
     itemName.innerHTML = `${name}`;
 
+    item.setAttribute("data-item", dataset);
     if (isDefault) {
-        item.setAttribute("data-item", dataset);
-    } else {
-        item.setAttribute("data-item", `${dataset}-board`);
-    }
+        item.classList.add("active");
+    };
 
-    item.appendChild(itemIcon);
-    item.appendChild(itemName);
-
-    item.addEventListener("click", function() {
+    const clickHandler = function(e) {
         const main = document.getElementsByClassName("main")[0];
         main.setAttribute("data-board", item.getAttribute("data-item"));
-        checkAddAbility();
-    })
+        runSidebarChecks(e);
+    };
+
+    item.addEventListener("click", clickHandler);
+
+    item.append(itemIcon, itemName);
+
+    if (!isDefault) {
+        const deleteItem = document.createElement("span");
+        deleteItem.innerHTML = modalIcons.close;
+        deleteItem.classList.add("item-del");
+        deleteItem.addEventListener("click", function(e) {
+            const main = document.getElementsByClassName("main")[0];
+            main.setAttribute("data-board", "home");
+            runSidebarChecks();
+
+            let elm;
+            if (e.target.tagName == "path") {
+                elm = e.target.parentElement.parentElement.parentElement;
+            } else {
+                elm = e.target.parentElement.parentElement;
+            }
+            elm.removeEventListener("click", clickHandler);
+
+            var allBoards = JSON.parse(localStorage.getItem("boards")) || [];
+
+            const index = allBoards.indexOf(elm.getAttribute("data-item"));
+            if (index > -1) {
+                allBoards.splice(index, 1);
+            }
+            localStorage.setItem("boards", JSON.stringify(allBoards));
+            refreshSidebar(allBoards);
+        })
+        item.appendChild(deleteItem);
+    }
 
     return item;
 }
