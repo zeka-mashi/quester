@@ -2,7 +2,7 @@ import home from "./home.js";
 
 function runSidebarChecks(e) {
     const main = document.getElementsByClassName("main")[0];
-    const data = main.getAttribute("data-board");
+    const board = main.getAttribute("data-board");
     const func = document.getElementsByClassName("new-func")[0];
     try {
         main.removeChild(main.firstElementChild);
@@ -24,12 +24,27 @@ function runSidebarChecks(e) {
     } else {
         items[0].classList.add("active");
     }
-    if (data == "home") {
+    if (board == "home") {
         func.classList.add("disabled");
-        main.appendChild(home());
+        if (getAllQuests(board).length < 1) {
+            main.appendChild(home());
+        }
     } else {
         func.classList.remove("disabled");
     }
 }
 
-export { runSidebarChecks };
+function getAllQuests(currentBoard) {
+    var thisBoard = [];
+    if (currentBoard == "home") {
+        const boards = JSON.parse(localStorage.getItem("boards")) || [];
+        for (let i = 0; i < boards.length; i++) {
+            thisBoard = thisBoard.concat(JSON.parse(localStorage.getItem(boards[i])));
+        }
+    } else {
+        thisBoard = JSON.parse(localStorage.getItem(currentBoard)) || [];
+    }
+    return thisBoard;
+}
+
+export { runSidebarChecks, getAllQuests };

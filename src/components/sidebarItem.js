@@ -1,6 +1,7 @@
 import { runSidebarChecks } from "./util.js";
 import { modalIcons } from "./icons.js";
 import refreshSidebar from "./refreshSidebar.js";
+import refreshQuests from "./refreshQuests.js";
 
 export default function sidebarItem(icon, name, dataset, isDefault) {
     const item = document.createElement("div");
@@ -20,6 +21,7 @@ export default function sidebarItem(icon, name, dataset, isDefault) {
         const main = document.getElementsByClassName("main")[0];
         main.setAttribute("data-board", item.getAttribute("data-item"));
         runSidebarChecks(e);
+        refreshQuests();
     };
 
     item.addEventListener("click", clickHandler);

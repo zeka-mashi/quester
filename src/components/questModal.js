@@ -1,4 +1,5 @@
 import createModal from "./createModal.js";
+import refreshQuests from "./refreshQuests.js";
 
 export default function questModal() {
     const modal = createModal();
@@ -27,6 +28,8 @@ export default function questModal() {
     inputField.setAttribute("type", "text");
     inputField.setAttribute("id", "quest-name");
     inputField.setAttribute("name", "quest-name");
+    inputField.setAttribute("minlength", "3");
+    inputField.setAttribute("maxlength", "50");
     inputField.required = true;
 
     nameWrapper.append(inputName, inputField);
@@ -43,6 +46,8 @@ export default function questModal() {
     descInput.setAttribute("cols", "40");
     descInput.setAttribute("id", "quest-desc");
     descInput.setAttribute("name", "quest-desc");
+    descInput.setAttribute("minlength", "1");
+    descInput.setAttribute("maxlength", "500");
     descInput.required = true;
 
     descWrapper.append(inputDesc, descInput);
@@ -63,6 +68,19 @@ export default function questModal() {
     datePickerInput.setAttribute("id", "date-picker");
     datePickerInput.setAttribute("name", "date-picker");
     datePickerInput.required = true;
+
+    //set min date
+    const today = new Date();
+    var month = today.getMonth() + 1;
+    var day = today.getDate();
+    if (month < 10) {
+        month = '0' + month.toString();
+    }
+    if (day < 10) {
+        day = '0' + day.toString();
+    }
+    const minDate = today.getFullYear() + '-' + month + '-' + day;
+    datePickerInput.setAttribute("min", minDate);
 
     dateWrapper.append(datePicker, datePickerInput);
 
@@ -86,13 +104,11 @@ export default function questModal() {
 
     const priorityMed = document.createElement("option");
     priorityMed.setAttribute("value", "Medium");
-    priorityMed.selected = true;
     priorityMed.textContent = "Medium";
     dropdownPriority.appendChild(priorityMed);
 
     const priorityHigh = document.createElement("option");
     priorityHigh.setAttribute("value", "High");
-    priorityHigh.selected = true;
     priorityHigh.textContent = "High";
     dropdownPriority.appendChild(priorityHigh);
 
@@ -120,11 +136,6 @@ export default function questModal() {
 
     boardWrapper.append(inputDropdown, dropdownInput);
 
-    const errMsg = document.createElement("p");
-    errMsg.classList.add("modal-errmsg", "hide");
-    errMsg.textContent = "That's awkward... the quest already exists!";
-    formWrapper.appendChild(errMsg);
-
     const btn = document.createElement("input");
     wrapper.appendChild(btn);
     btn.classList.add("modal-btn");
@@ -132,17 +143,14 @@ export default function questModal() {
     btn.setAttribute("form", "new-quest");
     btn.setAttribute("value", "Add Quest")
     formWrapper.addEventListener("submit", function(e) {
-        var allBoards = JSON.parse(localStorage.getItem("boards")) || [];
+        var thisBoard = JSON.parse(localStorage.getItem(board)) || [];
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());
-        const index = allBoards.indexOf(data["board-name"]);
-        if (index < 0) {
-            allBoards.push(data["board-name"]);
-            localStorage.setItem("boards", JSON.stringify(allBoards));
-            modal.remove();
-        } else {
-            errMsg.classList.remove("hide");
-        }
+        console.log(data);
+        thisBoard.push(data);
+        localStorage.setItem(board, JSON.stringify(thisBoard));
+        modal.remove();
+        refreshQuests();
     });
 
 
