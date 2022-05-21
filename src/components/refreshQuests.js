@@ -17,15 +17,21 @@ export default function refreshQuests() {
         questContainer.classList.add("quest-container");
         const questName = document.createElement("h3");
         questName.textContent = thisBoard[i]["quest-name"];
+        const timeWrapper = document.createElement("div");
+        timeWrapper.classList.add("inline-wrapper");
+        const tIcon = document.createElement("span");
+        tIcon.innerHTML = questIcons.clock;
         const questDue = document.createElement("p");
         questDue.textContent = thisBoard[i]["date-picker"];
+        timeWrapper.append(tIcon, questDue);
         const questDesc = document.createElement("p");
+        questDesc.classList.add("quest-desc");
         questDesc.textContent = thisBoard[i]["quest-desc"];
 
         const priorityAndBoard = document.createElement("div");
         priorityAndBoard.classList.add("pb-wrapper");
         const priorityWrapper = document.createElement("div");
-        priorityWrapper.classList.add("p-wrapper");
+        priorityWrapper.classList.add("inline-wrapper");
         const pIcon = document.createElement("span");
         const questPriority = document.createElement("p");
         questPriority.textContent = thisBoard[i]["quest-priority"];
@@ -43,7 +49,7 @@ export default function refreshQuests() {
         const questBoard = document.createElement("p");
         questBoard.textContent = thisBoard[i]["quest-board"];
         priorityAndBoard.append(priorityWrapper, questBoard);
-        questContainer.append(questName, questDue, questDesc, priorityAndBoard);
+        questContainer.append(questName, timeWrapper, questDesc, priorityAndBoard);
         questWrapper.appendChild(questContainer);
     }
 }

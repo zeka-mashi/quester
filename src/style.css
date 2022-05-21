@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Coming+Soon&family=Quicksand:wght@400;700&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Cinzel:wght@900&family=Gloria+Hallelujah&family=Quicksand:wght@400;700&display=block');
 * {
     margin: 0;
 }
@@ -144,7 +144,7 @@ a {
 
 .main {
     margin: auto;
-    font-family: 'Coming Soon', cursive;
+    font-family: 'Almarai', sans-serif;
     flex: 1;
 }
 
@@ -227,9 +227,21 @@ a {
 }
 
 .quest-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     background-color: white;
     padding: 10px;
     box-shadow: 0px 0px 10px #00000042;
+}
+
+.quest-container h3 {
+    font-size: 20px;
+}
+
+.quest-desc {
+    font-family: 'Gloria Hallelujah', cursive;
+    line-height: 1.5em;
 }
 
 .ctr {
@@ -248,14 +260,16 @@ a {
     gap: 40px;
 }
 
-.p-wrapper {
+.inline-wrapper {
     display: flex;
     height: 25px;
+    align-items: center;
 }
 
-.p-wrapper svg {
+.inline-wrapper svg {
     width: 24px;
     height: 24px;
+    vertical-align: sub;
 }
 
 .p-low {
@@ -274,13 +288,16 @@ a {
     display: flex;
 }
 
-.pb-wrapper p {
+.pb-wrapper p:last-child,
+.inline-wrapper p {
     padding: 0 5px;
 }
 
 .pb-wrapper>p {
     margin-left: auto;
     background-color: beige;
+    display: flex;
+    align-items: center;
 }
 
 #new-board .input-wrapper {
