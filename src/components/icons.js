@@ -13,4 +13,10 @@ const modalIcons = {
     close: `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>`,
 }
 
-export { sidebarIcons, modalIcons };
+const questIcons = {
+    medium: `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M19,10H5V8H19V10M19,16H5V14H19V16Z" /></svg>`,
+    high: `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z" /></svg>`,
+    low: `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>`,
+}
+
+export { sidebarIcons, modalIcons, questIcons };

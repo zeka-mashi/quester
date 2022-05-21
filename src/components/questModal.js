@@ -123,13 +123,13 @@ export default function questModal() {
 
     const dropdownInput = document.createElement("select");
     dropdownInput.setAttribute("id", "quest-board");
-    dropdownInput.setAttribute("name", "quest-board");
     dropdownInput.disabled = true;
 
     //get current board
     const board = document.getElementsByClassName("main")[0].getAttribute("data-board");
     const dropdownOption = document.createElement("option");
     dropdownOption.setAttribute("value", board);
+    dropdownInput.setAttribute("name", "quest-board");
     dropdownOption.selected = true;
     dropdownOption.textContent = board;
     dropdownInput.appendChild(dropdownOption);
@@ -143,6 +143,7 @@ export default function questModal() {
     btn.setAttribute("form", "new-quest");
     btn.setAttribute("value", "Add Quest")
     formWrapper.addEventListener("submit", function(e) {
+        dropdownInput.disabled = false;
         var thisBoard = JSON.parse(localStorage.getItem(board)) || [];
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());
