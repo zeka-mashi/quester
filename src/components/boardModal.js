@@ -28,6 +28,8 @@ export default function boardModal() {
     inputField.setAttribute("type", "text");
     inputField.setAttribute("id", "board-name");
     inputField.setAttribute("name", "board-name");
+    inputField.setAttribute("minlength", "1");
+    inputField.setAttribute("maxlength", "20");
     inputField.required = true;
 
     nameWrapper.append(inputName, inputField);
