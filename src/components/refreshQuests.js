@@ -23,10 +23,31 @@ export default function refreshQuests() {
         tIcon.innerHTML = questIcons.clock;
         const questDue = document.createElement("p");
         questDue.textContent = thisBoard[i]["date-picker"];
-        timeWrapper.append(tIcon, questDue);
+        const actions = document.createElement("div");
+        const dropdown = document.createElement("div");
+        dropdown.innerHTML = questIcons.dropdown;
+        dropdown.classList.add("quest-action", "drop-inactive");
+        const edit = document.createElement("div");
+        edit.innerHTML = questIcons.edit;
+        edit.classList.add("quest-action", "edit-icon");
+        const trash = document.createElement("div");
+        trash.innerHTML = questIcons.trash;
+        trash.classList.add("quest-action", "trash-icon");
+
+
+        actions.append(edit, trash, dropdown);
+        actions.classList.add("flex-r","ma-l","fg-5");
+        timeWrapper.append(tIcon, questDue, actions);
+
         const questDesc = document.createElement("p");
-        questDesc.classList.add("quest-desc");
+        questDesc.classList.add("quest-desc", "hide");
         questDesc.textContent = thisBoard[i]["quest-desc"];
+
+        dropdown.addEventListener("click", function() {
+            questDesc.classList.toggle("hide");
+            dropdown.classList.toggle("drop-active");
+            dropdown.classList.toggle("drop-inactive");
+        })
 
         const priorityAndBoard = document.createElement("div");
         priorityAndBoard.classList.add("pb-wrapper");
