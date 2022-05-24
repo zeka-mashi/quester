@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Cinzel:wght@900&family=Gloria+Hallelujah&family=Quicksand:wght@400;700&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Cinzel:wght@900&family=Quicksand:wght@400;700&display=block');
 * {
     margin: 0;
 }
@@ -241,8 +241,10 @@ a {
 }
 
 .quest-desc {
-    font-family: 'Gloria Hallelujah', cursive;
     line-height: 1.5em;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .2s ease-in-out;
 }
 
 .quest-action {
@@ -275,15 +277,15 @@ a {
 
 .drop-inactive {
     transform: rotate(-90deg);
-    transition: -webkit-transform .5s ease-in-out;
-    transition: transform .5s ease-in-out;
-    transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
+    transition: -webkit-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+    transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
 }
 
 .drop-active {
-    transition: -webkit-transform .5s ease-in-out;
-    transition: transform .5s ease-in-out;
-    transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
+    transition: -webkit-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+    transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
 }
 
 .inline-wrapper {

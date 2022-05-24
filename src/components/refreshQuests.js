@@ -15,6 +15,8 @@ export default function refreshQuests() {
     for (let i = 0; i < thisBoard.length; i++) {
         const questContainer = document.createElement("div");
         questContainer.classList.add("quest-container");
+        questContainer.setAttribute("data-quest", thisBoard[i]["quest-name"]);
+        questContainer.setAttribute("data-board", thisBoard[i]["quest-board"]);
         const questName = document.createElement("h3");
         questName.textContent = thisBoard[i]["quest-name"];
         const timeWrapper = document.createElement("div");
@@ -24,9 +26,6 @@ export default function refreshQuests() {
         const questDue = document.createElement("p");
         questDue.textContent = thisBoard[i]["date-picker"];
         const actions = document.createElement("div");
-        const dropdown = document.createElement("div");
-        dropdown.innerHTML = questIcons.dropdown;
-        dropdown.classList.add("quest-action", "drop-inactive");
         const edit = document.createElement("div");
         edit.innerHTML = questIcons.edit;
         edit.classList.add("quest-action", "edit-icon");
@@ -34,20 +33,56 @@ export default function refreshQuests() {
         trash.innerHTML = questIcons.trash;
         trash.classList.add("quest-action", "trash-icon");
 
+        trash.addEventListener("click", function (e) {
+            const elm =
+                e.currentTarget.parentElement.parentElement.parentElement;
+            let board =
+                JSON.parse(
+                    localStorage.getItem(elm.getAttribute("data-board"))
+                ) || [];
+            let questName = elm.getAttribute("data-quest");
+            let search = board.find(
+                (quest) => quest["quest-name"] === questName
+            );
+            if (search) {
+                if (confirm("Are you sure you want to delete this quest?")) {
+                    const idx = board.indexOf(search);
+                    board.splice(idx, 1);
+                    localStorage.setItem(
+                        elm.getAttribute("data-board"),
+                        JSON.stringify(board)
+                    );
+                    elm.remove();
+                    console.log("Deleted.");
+                } else {
+                    console.log("Not deleted.");
+                }
+            }
+            //console.log(elm);
+        });
+
+        const dropdown = document.createElement("div");
+        dropdown.innerHTML = questIcons.dropdown;
+        dropdown.classList.add("quest-action", "drop-inactive");
 
         actions.append(edit, trash, dropdown);
-        actions.classList.add("flex-r","ma-l","fg-5");
+        actions.classList.add("flex-r", "ma-l", "fg-5");
         timeWrapper.append(tIcon, questDue, actions);
 
         const questDesc = document.createElement("p");
-        questDesc.classList.add("quest-desc", "hide");
+        questDesc.classList.add("quest-desc");
         questDesc.textContent = thisBoard[i]["quest-desc"];
 
-        dropdown.addEventListener("click", function() {
-            questDesc.classList.toggle("hide");
+        dropdown.addEventListener("click", function () {
+            questDesc.classList.toggle("shown");
+            if (questDesc.classList.contains("shown")) {
+                questDesc.style.maxHeight = questDesc.scrollHeight + "px";
+            } else {
+                questDesc.style.maxHeight = "0px";
+            }
             dropdown.classList.toggle("drop-active");
             dropdown.classList.toggle("drop-inactive");
-        })
+        });
 
         const priorityAndBoard = document.createElement("div");
         priorityAndBoard.classList.add("pb-wrapper");
@@ -70,7 +105,12 @@ export default function refreshQuests() {
         const questBoard = document.createElement("p");
         questBoard.textContent = thisBoard[i]["quest-board"];
         priorityAndBoard.append(priorityWrapper, questBoard);
-        questContainer.append(questName, timeWrapper, questDesc, priorityAndBoard);
+        questContainer.append(
+            questName,
+            timeWrapper,
+            questDesc,
+            priorityAndBoard
+        );
         questWrapper.appendChild(questContainer);
     }
 }
