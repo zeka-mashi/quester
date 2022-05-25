@@ -5,10 +5,10 @@ function runSidebarChecks(e) {
     const board = main.getAttribute("data-board");
     const func = document.getElementsByClassName("new-func")[0];
     try {
-        main.removeChild(main.firstElementChild);
-    } catch {
-
-    }
+        while (main.firstChild) {
+            main.removeChild(main.lastChild);
+        }
+    } catch {}
     const items = document.getElementsByClassName("sidebar-item");
     for (let i = 0; i < items.length; i++) {
         items[i].classList.remove("active");
@@ -39,7 +39,9 @@ function getAllQuests(currentBoard) {
     if (currentBoard == "home") {
         const boards = JSON.parse(localStorage.getItem("boards")) || [];
         for (let i = 0; i < boards.length; i++) {
-            thisBoard = thisBoard.concat(JSON.parse(localStorage.getItem(boards[i])));
+            thisBoard = thisBoard.concat(
+                JSON.parse(localStorage.getItem(boards[i]))
+            );
         }
     } else {
         thisBoard = JSON.parse(localStorage.getItem(currentBoard)) || [];
