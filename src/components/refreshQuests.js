@@ -6,6 +6,11 @@ import priorityTag from "./priorityTag.js";
 
 export default function refreshQuests() {
     const container = document.getElementsByClassName("main")[0];
+    try {
+        while (container.firstChild) {
+            container.removeChild(container.lastChild);
+        }
+    } catch {}
     const board = container.getAttribute("data-board");
 
     const questWrapper = document.createElement("div");
@@ -13,7 +18,6 @@ export default function refreshQuests() {
     container.append(questWrapper);
 
     var thisBoard = getAllQuests(board);
-    console.log(thisBoard);
 
     for (let i = 0; i < thisBoard.length; i++) {
         const questContainer = document.createElement("div");

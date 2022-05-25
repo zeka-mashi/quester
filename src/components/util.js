@@ -1,4 +1,5 @@
 import home from "./home.js";
+import refreshQuests from "./refreshQuests.js";
 
 function runSidebarChecks(e) {
     const main = document.getElementsByClassName("main")[0];
@@ -14,23 +15,21 @@ function runSidebarChecks(e) {
         items[i].classList.remove("active");
     }
     if (e) {
-        if (e.target.tagName == "SPAN") {
-            e.target.parentElement.classList.add("active");
-        } else if (e.target.tagName == "svg") {
-            e.target.parentElement.parentElement.classList.add("active");
-        } else {
-            e.target.classList.add("active");
-        }
+        e.currentTarget.classList.add("active");
     } else {
         items[0].classList.add("active");
     }
     if (board == "home") {
         func.classList.add("disabled");
-        if (getAllQuests(board).length < 1) {
+        const arr = getAllQuests(board);
+        if (arr.length < 1 || arr.every((item) => item === null)) {
             main.appendChild(home());
+        } else {
+            refreshQuests();
         }
     } else {
         func.classList.remove("disabled");
+        refreshQuests();
     }
 }
 

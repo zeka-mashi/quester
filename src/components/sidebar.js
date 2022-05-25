@@ -8,10 +8,10 @@ export default function sidebar() {
     side.classList.add("sidebar", "flex-c", "nos");
 
     const header = document.createElement("h1");
-    header.textContent = "Quester"
+    header.textContent = "Quester";
 
     const subheader = document.createElement("h5");
-    subheader.textContent = "A to-do app with a touch of RPG elements"
+    subheader.textContent = "Make your next to-do a quest";
 
     const headerWrapper = document.createElement("div");
     headerWrapper.classList.add("sidebar-header");
@@ -40,14 +40,25 @@ export default function sidebar() {
 
     const sidebarCredit = document.createElement("div");
     sidebarCredit.classList.add("credit");
-    sidebarCredit.innerHTML = sidebarIcons.copyright + "2022 zeka-mashi" + "<a href='https://github.com/zeka-mashi/quester'>" + sidebarIcons.github + "</a><a href='https://davidthe.dev/'>" + sidebarIcons.web + "</a>";
+    sidebarCredit.innerHTML =
+        sidebarIcons.copyright +
+        "2022 zeka-mashi" +
+        "<a href='https://github.com/zeka-mashi/quester'>" +
+        sidebarIcons.github +
+        "</a><a href='https://davidthe.dev/'>" +
+        sidebarIcons.web +
+        "</a>";
     side.appendChild(sidebarCredit);
 
-    sidebarWrapper.appendChild(sidebarItem(sidebarIcons.home, "Home", "home", true));
+    sidebarWrapper.appendChild(
+        sidebarItem(sidebarIcons.home, "Home", "home", true)
+    );
 
     var allBoards = JSON.parse(localStorage.getItem("boards")) || [];
     for (let i = 0; i < allBoards.length; i++) {
-        sidebarWrapper.appendChild(sidebarItem(sidebarIcons.board, allBoards[i], `${allBoards[i]}`));
+        sidebarWrapper.appendChild(
+            sidebarItem(sidebarIcons.board, allBoards[i], `${allBoards[i]}`)
+        );
     }
 
     return side;

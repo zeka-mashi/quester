@@ -9,7 +9,6 @@ export default function app() {
 
     app.appendChild(sidebar());
 
-
     const main = document.createElement("div");
     main.classList.add("main");
     main.setAttribute("data-board", "home");

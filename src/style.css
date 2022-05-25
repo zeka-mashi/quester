@@ -31,13 +31,18 @@ a {
     min-height: 100vh;
     display: flex;
     background-color: aliceblue;
+    background-image: url(https://images6.alphacoders.com/313/313253.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .sidebar {
     font-family: 'Quicksand', sans-serif;
     font-weight: 400;
     width: 300px;
-    background-color: rgb(206, 232, 255);
+    background-color: rgb(206 232 255 / 75%);
     box-shadow: 0px 0px 10px #00000085;
     position: sticky;
     top: 0;
@@ -47,7 +52,7 @@ a {
 .sidebar-header {
     text-align: center;
     padding: 20px 0;
-    background-color: rgb(146, 204, 255);
+    background-color: rgb(146 204 255 / 50%);
     box-shadow: -0px 3px 5px #00000040;
 }
 
@@ -100,7 +105,9 @@ a {
     font-size: 20px;
     font-weight: 400;
     cursor: pointer;
-    padding: 0 5px;
+    padding: 1px 5px;
+    background-color: #b5b5b561;
+    border-radius: 10px;
 }
 
 .item-del {
@@ -113,16 +120,24 @@ a {
     vertical-align: bottom;
 }
 
+.item-del {
+    color: #606060;
+}
+
 .item-del svg {
     height: 20px;
-    width: 20px;
-    color: gray;
+    width: 20px;;
     vertical-align: middle;
 }
 
+.item-del:hover {
+    color: black;
+}
+
 .active {
-    background-color: #f0f8ffad;
-    border-radius: 10px;
+    background-color: #ecf6ffcc;
+    border: 1px solid white;
+    padding: 0px 4px;
 }
 
 .credit {
@@ -153,6 +168,7 @@ a {
     justify-content: center;
     height: 100%;
     text-align: center;
+    text-shadow: 1px 1px 5px white, -1px -1px 5px white, 1px -1px 5px white, -1px 1px 5px white;
 }
 
 .home-header {
@@ -233,6 +249,7 @@ a {
     gap: 10px;
     background-color: white;
     padding: 10px;
+    border-radius: 3px;
     box-shadow: 0px 0px 10px #00000042;
 }
 

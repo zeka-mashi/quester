@@ -1,12 +1,11 @@
 import { runSidebarChecks } from "./util.js";
 import { modalIcons } from "./icons.js";
 import refreshSidebar from "./refreshSidebar.js";
-import refreshQuests from "./refreshQuests.js";
 
 export default function sidebarItem(icon, name, dataset, isDefault) {
     const item = document.createElement("div");
     item.classList.add("sidebar-item");
-    const itemIcon = document.createElement("span")
+    const itemIcon = document.createElement("span");
     itemIcon.innerHTML = icon;
 
     const itemName = document.createElement("span");
@@ -15,13 +14,12 @@ export default function sidebarItem(icon, name, dataset, isDefault) {
     item.setAttribute("data-item", dataset);
     if (isDefault) {
         item.classList.add("active");
-    };
+    }
 
-    const clickHandler = function(e) {
+    const clickHandler = function (e) {
         const main = document.getElementsByClassName("main")[0];
         main.setAttribute("data-board", item.getAttribute("data-item"));
         runSidebarChecks(e);
-        refreshQuests();
     };
 
     item.addEventListener("click", clickHandler);
@@ -32,28 +30,35 @@ export default function sidebarItem(icon, name, dataset, isDefault) {
         const deleteItem = document.createElement("span");
         deleteItem.innerHTML = modalIcons.close;
         deleteItem.classList.add("item-del");
-        deleteItem.addEventListener("click", function(e) {
-            const main = document.getElementsByClassName("main")[0];
-            main.setAttribute("data-board", "home");
-            runSidebarChecks();
+        deleteItem.addEventListener("click", function (e) {
+            if (
+                confirm(
+                    "Deleting this board will also delete all associated quests.\n\nReally delete this board? This action cannot be undone!"
+                )
+            ) {
+                const main = document.getElementsByClassName("main")[0];
+                main.setAttribute("data-board", "home");
+                runSidebarChecks();
 
-            let elm;
-            if (e.target.tagName == "path") {
-                elm = e.target.parentElement.parentElement.parentElement;
-            } else {
-                elm = e.target.parentElement.parentElement;
+                let elm;
+                if (e.target.tagName == "path") {
+                    elm = e.target.parentElement.parentElement.parentElement;
+                } else {
+                    elm = e.target.parentElement.parentElement;
+                }
+                elm.removeEventListener("click", clickHandler);
+
+                var allBoards =
+                    JSON.parse(localStorage.getItem("boards")) || [];
+
+                const index = allBoards.indexOf(elm.getAttribute("data-item"));
+                if (index > -1) {
+                    allBoards.splice(index, 1);
+                }
+                localStorage.setItem("boards", JSON.stringify(allBoards));
+                refreshSidebar(allBoards);
             }
-            elm.removeEventListener("click", clickHandler);
-
-            var allBoards = JSON.parse(localStorage.getItem("boards")) || [];
-
-            const index = allBoards.indexOf(elm.getAttribute("data-item"));
-            if (index > -1) {
-                allBoards.splice(index, 1);
-            }
-            localStorage.setItem("boards", JSON.stringify(allBoards));
-            refreshSidebar(allBoards);
-        })
+        });
         item.appendChild(deleteItem);
     }
 
