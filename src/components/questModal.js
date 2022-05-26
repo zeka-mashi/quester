@@ -121,10 +121,18 @@ export default function questModal() {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());
         console.log(data);
-        thisBoard.push(data);
-        localStorage.setItem(board, JSON.stringify(thisBoard));
-        modal.remove();
-        refreshQuests();
+        let search = thisBoard.find(
+            (quest) => quest["quest-name"] === data["quest-name"]
+        );
+        const idx = thisBoard.indexOf(search);
+        if (idx < 0) {
+            thisBoard.push(data);
+            localStorage.setItem(board, JSON.stringify(thisBoard));
+            modal.remove();
+            refreshQuests();
+        } else {
+            alert("A quest with that name already exists on this board!");
+        }
     });
 
     return modal;
