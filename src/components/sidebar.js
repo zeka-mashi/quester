@@ -8,10 +8,10 @@ export default function sidebar() {
     side.classList.add("sidebar", "flex-c", "nos");
 
     const header = document.createElement("h1");
-    header.textContent = "Quester";
+    header.textContent = "#Todo";
 
     const subheader = document.createElement("h5");
-    subheader.textContent = "Make your next to-do a quest";
+    subheader.textContent = '"I\'ll remember to do this... right?"';
 
     const headerWrapper = document.createElement("div");
     headerWrapper.classList.add("sidebar-header");
