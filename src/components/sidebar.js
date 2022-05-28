@@ -7,6 +7,14 @@ export default function sidebar() {
     const side = document.createElement("div");
     side.classList.add("sidebar", "flex-c", "nos");
 
+    const responsiveMenu = document.createElement("div");
+    responsiveMenu.innerHTML = sidebarIcons.menu;
+    responsiveMenu.classList.add("mobile-menu");
+    responsiveMenu.addEventListener("click", function (e) {
+        e.currentTarget.parentElement.classList.toggle("mobile-active");
+    });
+    side.appendChild(responsiveMenu);
+
     const header = document.createElement("h1");
     header.textContent = "#Todo";
 
@@ -23,7 +31,7 @@ export default function sidebar() {
     addWrapper.classList.add("add-function");
 
     const newQuest = document.createElement("div");
-    newQuest.innerHTML = sidebarIcons.plus + "New Quest";
+    newQuest.innerHTML = sidebarIcons.plus + "New Todo";
     newQuest.addEventListener("click", addQuest);
     newQuest.classList.add("new-func", "disabled");
     addWrapper.appendChild(newQuest);

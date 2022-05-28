@@ -45,6 +45,8 @@ function getAllQuests(currentBoard) {
     } else {
         thisBoard = JSON.parse(localStorage.getItem(currentBoard)) || [];
     }
+    thisBoard = thisBoard.filter((x) => x);
+    thisBoard.sort((a, b) => (a["date-picker"] > b["date-picker"] ? 1 : -1));
     return thisBoard;
 }
 

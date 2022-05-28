@@ -5,12 +5,12 @@ export default function boardModal() {
     const modal = createModal();
 
     const wrapper = document.createElement("div");
-    wrapper.classList.add("board-modal", "flex-c")
+    wrapper.classList.add("board-modal", "flex-c");
     modal.appendChild(wrapper);
 
     const header = document.createElement("h2");
     wrapper.appendChild(header);
-    header.textContent = "New Adventure Board";
+    header.textContent = "New #Todo Board";
     header.classList.add("ctr", "mtb-10");
 
     const formWrapper = document.createElement("form");
@@ -44,8 +44,8 @@ export default function boardModal() {
     btn.classList.add("modal-btn");
     btn.setAttribute("type", "submit");
     btn.setAttribute("form", "new-board");
-    btn.setAttribute("value", "Add Board")
-    formWrapper.addEventListener("submit", function(e) {
+    btn.setAttribute("value", "Add Board");
+    formWrapper.addEventListener("submit", function (e) {
         var allBoards = JSON.parse(localStorage.getItem("boards")) || [];
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());
@@ -60,7 +60,6 @@ export default function boardModal() {
             errMsg.classList.remove("hide");
         }
     });
-
 
     return modal;
 }

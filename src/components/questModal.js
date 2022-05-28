@@ -12,7 +12,7 @@ export default function questModal() {
 
     const header = document.createElement("h2");
     wrapper.appendChild(header);
-    header.textContent = "New Quest";
+    header.textContent = "New #Todo";
     header.classList.add("ctr", "mtb-10");
 
     const formWrapper = document.createElement("form");
@@ -23,7 +23,7 @@ export default function questModal() {
     formWrapper.appendChild(nameWrapper);
     nameWrapper.classList.add("input-wrapper", "flex-c");
     const inputName = document.createElement("label");
-    inputName.textContent = "Quest Name";
+    inputName.textContent = "Todo Name";
     inputName.setAttribute("for", "quest-name");
 
     const inputField = document.createElement("input");
@@ -75,7 +75,7 @@ export default function questModal() {
     rowWrap.appendChild(priorityWrapper);
     priorityWrapper.classList.add("input-wrapper", "flex-c");
     const inputPriority = document.createElement("label");
-    inputPriority.textContent = "Priority Level";
+    inputPriority.textContent = "Priority";
     inputPriority.setAttribute("for", "quest-priority");
 
     const dropdownPriority = priorityPicker();
@@ -89,7 +89,7 @@ export default function questModal() {
     formWrapper.appendChild(boardWrapper);
     boardWrapper.classList.add("input-wrapper", "flex-c");
     const inputDropdown = document.createElement("label");
-    inputDropdown.textContent = "Adventure Board";
+    inputDropdown.textContent = "Assigned Board";
     inputDropdown.setAttribute("for", "quest-board");
 
     const dropdownInput = document.createElement("select");
@@ -114,9 +114,8 @@ export default function questModal() {
     btn.classList.add("modal-btn");
     btn.setAttribute("type", "submit");
     btn.setAttribute("form", "new-quest");
-    btn.setAttribute("value", "Add Quest");
+    btn.setAttribute("value", "Add Todo");
     formWrapper.addEventListener("submit", function (e) {
-        dropdownInput.disabled = false;
         var thisBoard = JSON.parse(localStorage.getItem(board)) || [];
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());

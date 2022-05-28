@@ -20,6 +20,9 @@ export default function sidebarItem(icon, name, dataset, isDefault) {
         const main = document.getElementsByClassName("main")[0];
         main.setAttribute("data-board", item.getAttribute("data-item"));
         runSidebarChecks(e);
+        e.currentTarget.parentElement.parentElement.classList.remove(
+            "mobile-active"
+        );
     };
 
     item.addEventListener("click", clickHandler);

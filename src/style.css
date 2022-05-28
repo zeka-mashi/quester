@@ -50,19 +50,39 @@ a {
     box-shadow: 1px 0px 10px #000000;
     position: fixed;
     top: 0;
+    z-index: 1;
     min-height: 100vh;
     height: 100%;
+    transition: width 0.2s ease-in-out;
 }
 
 .sidebar-header {
     text-align: center;
-    color: #15892e;
+    color: #c5cbd3;
     padding: 20px 0;
     box-shadow: -2px 3px 5px #000000;
 }
 
 .sidebar-header h5 {
     font-weight: 400;
+}
+
+.mobile-menu {
+    position: absolute;
+    display: none;
+    top: 5px;
+    left: 5px;
+    color: #e1e1e1;
+    cursor: pointer;
+}
+
+.mobile-menu:hover {
+    color: white;
+}
+
+.mobile-menu svg {
+    width: 48px;
+    height: 48px;
 }
 
 .add-function {
@@ -100,7 +120,7 @@ a {
 }
 
 .sidebar-wrapper {
-    margin: 30px 10px 0 10px;
+    margin: 30px 10px 10px 10px;
     flex: 1;
     gap: 10px;
     overflow-y: auto;
@@ -109,19 +129,18 @@ a {
 .sidebar-item {
     display: flex;
     align-items: center;
+    word-break: break-word;
     gap: 15px;
     font-size: 20px;
     font-weight: 400;
     cursor: pointer;
     padding: 1px 5px;
-    color: #00a700;
-    /* background-color: #b5b5b561;
-    border-radius: 10px; */
+    color: #8b8b8b;
 }
 
 .item-del {
     margin-left: auto;
-    color: #59835e;
+    color: #919191;
 }
 
 .sidebar-item svg {
@@ -137,11 +156,11 @@ a {
 }
 
 .item-del:hover {
-    color: #979797;
+    color: #b6b6b6;
 }
 
 .active {
-    color: #e4ffe4;
+    color: #ffffff;
 }
 
 .credit {
@@ -150,7 +169,8 @@ a {
     justify-content: center;
     align-items: center;
     gap: 2px;
-    color: #00c500;
+    color: #c5cbd3;
+    box-shadow: -5px 0px 15px black;
 }
 
 .credit svg {
@@ -159,13 +179,14 @@ a {
 }
 
 .credit a {
-    color: #00c500;
+    color: #c5cbd3;
 }
 
 .main {
     margin-left: 250px;
     font-family: "Almarai", sans-serif;
     flex: 1;
+    transition: margin-top 0.5s ease-in-out, margin-left 0.5s ease-in-out;
 }
 
 .home {
@@ -304,6 +325,10 @@ a {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.overdue {
+    color: #a94c4c;
 }
 
 .quest-desc-wrapper {
@@ -460,11 +485,9 @@ textarea {
 }
 
 .title-edit {
+    font-size: 16px;
     margin: 10px 25% 10px 10px;
     padding: 5px;
-}
-
-.quest-due {
 }
 
 .desc-edit {
@@ -473,4 +496,43 @@ textarea {
 
 .priority-edit {
     margin: 0 auto 15px 10px;
+}
+
+@media only screen and (max-width: 595px) {
+    .sidebar.mobile-active {
+        display: flex;
+        width: 100%;
+    }
+
+    .sidebar {
+        width: 0px;
+    }
+
+    .sidebar:not(.mobile-active) > div:not(.mobile-menu) {
+        display: none;
+    }
+
+    .mobile-active > .mobile-menu {
+        color: #e1e1e1;
+    }
+
+    .mobile-active > .mobile-menu:hover {
+        color: white;
+    }
+
+    .mobile-menu {
+        color: black;
+        display: block;
+    }
+
+    .main {
+        margin-left: 0px;
+        margin-top: 70px;
+    }
+}
+
+@media only screen and (max-width: 250px) {
+    .sidebar.mobile-active {
+        min-width: 250px;
+    }
 }
