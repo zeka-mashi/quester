@@ -26,6 +26,70 @@ export default function refreshQuests() {
         questContainer.setAttribute("data-board", thisBoard[i]["quest-board"]);
         const questName = document.createElement("h3");
         questName.textContent = thisBoard[i]["quest-name"];
+        const headerActions = document.createElement("div");
+        headerActions.classList.add("header-actions");
+        const minMax = document.createElement("div");
+        minMax.classList.add("minmax-box");
+        minMax.innerHTML = questIcons.maximize;
+
+        minMax.addEventListener("click", function (e) {
+            let elm = e.currentTarget.parentElement.parentElement;
+            let questDesc = elm.querySelector(".quest-desc");
+            if (questDesc) {
+                questDesc.classList.toggle("shown");
+                if (questDesc.classList.contains("shown")) {
+                    questDesc.style.maxHeight = questDesc.scrollHeight + "px";
+                } else {
+                    questDesc.style.maxHeight = "0px";
+                }
+                minMax.classList.toggle("drop-active");
+                if (minMax.classList.contains("drop-active")) {
+                    minMax.innerHTML = questIcons.minimize;
+                } else {
+                    minMax.innerHTML = questIcons.maximize;
+                }
+            }
+        });
+
+        const close = document.createElement("div");
+        close.classList.add("close-box");
+        close.innerHTML = questIcons.close;
+
+        close.addEventListener("click", function (e) {
+            const elm = e.currentTarget.parentElement.parentElement;
+            let board =
+                JSON.parse(
+                    localStorage.getItem(elm.getAttribute("data-board"))
+                ) || [];
+            let questName = elm.getAttribute("data-quest");
+            let search = board.find(
+                (quest) => quest["quest-name"] === questName
+            );
+            if (search) {
+                if (confirm("Are you sure you want to delete this quest?")) {
+                    const idx = board.indexOf(search);
+                    board.splice(idx, 1);
+                    localStorage.setItem(
+                        elm.getAttribute("data-board"),
+                        JSON.stringify(board)
+                    );
+                    elm.remove();
+                }
+            }
+        });
+
+        headerActions.append(minMax, close);
+
+        const sideColor = document.createElement("div");
+        sideColor.classList.add("side-color");
+        if (thisBoard[i]["quest-priority"] == "Low") {
+            sideColor.classList.add("p-low");
+        } else if (thisBoard[i]["quest-priority"] == "Medium") {
+            sideColor.classList.add("p-med");
+        } else if (thisBoard[i]["quest-priority"] == "High") {
+            sideColor.classList.add("p-high");
+        }
+
         const timeWrapper = document.createElement("div");
         timeWrapper.classList.add("inline-wrapper");
         const tIcon = document.createElement("span");
@@ -49,10 +113,9 @@ export default function refreshQuests() {
             let search = board.find(
                 (quest) => quest["quest-name"] === questName
             );
-            let dropdownIcon = elm.querySelector(".drop-active");
-            if (dropdownIcon) {
-                dropdownIcon.classList.remove("drop-active");
-                dropdownIcon.classList.add("drop-inactive");
+            let minMax = elm.querySelector(".drop-active");
+            if (minMax) {
+                minMax.innerHTML = questIcons.maximize;
             }
             let editIcon = elm.querySelector(".edit-icon");
             console.log(elm);
@@ -151,39 +214,7 @@ export default function refreshQuests() {
             }
         });
 
-        const trash = document.createElement("div");
-        trash.innerHTML = questIcons.trash;
-        trash.classList.add("quest-action", "trash-icon");
-
-        trash.addEventListener("click", function (e) {
-            const elm =
-                e.currentTarget.parentElement.parentElement.parentElement;
-            let board =
-                JSON.parse(
-                    localStorage.getItem(elm.getAttribute("data-board"))
-                ) || [];
-            let questName = elm.getAttribute("data-quest");
-            let search = board.find(
-                (quest) => quest["quest-name"] === questName
-            );
-            if (search) {
-                if (confirm("Are you sure you want to delete this quest?")) {
-                    const idx = board.indexOf(search);
-                    board.splice(idx, 1);
-                    localStorage.setItem(
-                        elm.getAttribute("data-board"),
-                        JSON.stringify(board)
-                    );
-                    elm.remove();
-                }
-            }
-        });
-
-        const dropdown = document.createElement("div");
-        dropdown.innerHTML = questIcons.dropdown;
-        dropdown.classList.add("quest-action", "drop-inactive");
-
-        actions.append(edit, trash, dropdown);
+        actions.append(edit);
         actions.classList.add("flex-r", "ma-l", "fg-5");
         timeWrapper.append(tIcon, questDue, actions);
 
@@ -191,28 +222,14 @@ export default function refreshQuests() {
         questDesc.classList.add("quest-desc");
         questDesc.textContent = thisBoard[i]["quest-desc"];
 
-        dropdown.addEventListener("click", function (e) {
-            let elm = e.currentTarget.parentElement.parentElement.parentElement;
-            let questDesc = elm.querySelector(".quest-desc");
-            if (questDesc) {
-                questDesc.classList.toggle("shown");
-                if (questDesc.classList.contains("shown")) {
-                    questDesc.style.maxHeight = questDesc.scrollHeight + "px";
-                } else {
-                    questDesc.style.maxHeight = "0px";
-                }
-                dropdown.classList.toggle("drop-active");
-                dropdown.classList.toggle("drop-inactive");
-            }
-        });
-
         const priorityAndBoard = document.createElement("div");
         priorityAndBoard.classList.add("pb-wrapper");
-        const priorityWrapper = priorityTag(thisBoard[i]["quest-priority"]);
         const questBoard = document.createElement("p");
         questBoard.textContent = thisBoard[i]["quest-board"];
-        priorityAndBoard.append(priorityWrapper, questBoard);
+        priorityAndBoard.append(questBoard);
         questContainer.append(
+            headerActions,
+            sideColor,
             questName,
             timeWrapper,
             questDesc,
