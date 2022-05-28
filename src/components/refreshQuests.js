@@ -34,8 +34,8 @@ export default function refreshQuests() {
 
         minMax.addEventListener("click", function (e) {
             let elm = e.currentTarget.parentElement.parentElement;
-            let questDesc = elm.querySelector(".quest-desc");
-            if (questDesc) {
+            let questDesc = elm.querySelector(".quest-desc-wrapper");
+            if (questDesc && !minMax.classList.contains("edit-mode")) {
                 questDesc.classList.toggle("shown");
                 if (questDesc.classList.contains("shown")) {
                     questDesc.style.maxHeight = questDesc.scrollHeight + "px";
@@ -84,27 +84,46 @@ export default function refreshQuests() {
         sideColor.classList.add("side-color");
         if (thisBoard[i]["quest-priority"] == "Low") {
             sideColor.classList.add("p-low");
+            sideColor.setAttribute("data-priority", "Low");
         } else if (thisBoard[i]["quest-priority"] == "Medium") {
             sideColor.classList.add("p-med");
+            sideColor.setAttribute("data-priority", "Medium");
         } else if (thisBoard[i]["quest-priority"] == "High") {
             sideColor.classList.add("p-high");
+            sideColor.setAttribute("data-priority", "High");
         }
 
         const timeWrapper = document.createElement("div");
-        timeWrapper.classList.add("inline-wrapper");
+        timeWrapper.classList.add("inline-wrapper", "fg-5");
         const tIcon = document.createElement("span");
         tIcon.innerHTML = questIcons.clock;
         const questDue = document.createElement("p");
         questDue.textContent = thisBoard[i]["date-picker"];
         questDue.classList.add("quest-due");
-        const actions = document.createElement("div");
+
+        timeWrapper.append(tIcon, questDue);
+
+        const questDescWrapper = document.createElement("div");
+        questDescWrapper.classList.add("quest-desc-wrapper");
+        const questDesc = document.createElement("p");
+        questDesc.classList.add("quest-desc");
+        questDesc.textContent = thisBoard[i]["quest-desc"];
+
+        const boardAndEdit = document.createElement("div");
+        boardAndEdit.classList.add("pb-wrapper");
+        const questBoard = document.createElement("p");
+        questBoard.textContent = thisBoard[i]["quest-board"];
+        const editBar = document.createElement("div");
+        editBar.classList.add("editbar", "flex-r", "ma-l", "fg-5");
+
         const edit = document.createElement("div");
         edit.innerHTML = questIcons.edit;
         edit.classList.add("quest-action", "edit-icon");
 
         edit.addEventListener("click", function (e) {
             const elm =
-                e.currentTarget.parentElement.parentElement.parentElement;
+                e.currentTarget.parentElement.parentElement.parentElement
+                    .parentElement;
             let board =
                 JSON.parse(
                     localStorage.getItem(elm.getAttribute("data-board"))
@@ -123,7 +142,8 @@ export default function refreshQuests() {
                 let titleInput = elm.querySelector(".title-edit");
                 let descInput = elm.querySelector(".desc-edit");
                 let dateInput = elm.querySelector(".quest-due");
-                let priorityInput = elm.querySelector(".pb-wrapper > select");
+                let priorityInput = elm.querySelector(".priority-edit");
+                let undoBtn = elm.querySelector(".undo-icon");
 
                 if (
                     titleInput.value.length > 2 &&
@@ -136,6 +156,7 @@ export default function refreshQuests() {
                         confirm("Are you sure you want to save your changes?")
                     ) {
                         editIcon.innerHTML = questIcons.edit;
+                        undoBtn.remove();
                         e.currentTarget.classList.remove("check-icon");
 
                         const newTitle = document.createElement("h3");
@@ -146,7 +167,21 @@ export default function refreshQuests() {
                         const newDate = document.createElement("p");
                         newDate.textContent = dateInput.value;
                         newDate.classList.add("quest-due");
-                        const newPriority = priorityTag(priorityInput.value);
+                        let priorityColor = elm.querySelector(".side-color");
+                        priorityColor.className = "side-color";
+                        if (priorityInput.value == "Low") {
+                            priorityColor.classList.add("p-low");
+                            priorityColor.setAttribute("data-priority", "Low");
+                        } else if (priorityInput.value == "Medium") {
+                            priorityColor.classList.add("p-med");
+                            priorityColor.setAttribute(
+                                "data-priority",
+                                "Medium"
+                            );
+                        } else {
+                            priorityColor.classList.add("p-high");
+                            priorityColor.setAttribute("data-priority", "High");
+                        }
 
                         titleInput.parentNode.replaceChild(
                             newTitle,
@@ -154,10 +189,7 @@ export default function refreshQuests() {
                         );
                         descInput.parentNode.replaceChild(newDesc, descInput);
                         dateInput.parentNode.replaceChild(newDate, dateInput);
-                        priorityInput.parentNode.replaceChild(
-                            newPriority,
-                            priorityInput
-                        );
+                        priorityInput.remove();
 
                         elm.setAttribute("data-quest", titleInput.value);
 
@@ -168,7 +200,7 @@ export default function refreshQuests() {
                             "quest-desc": newDesc.textContent,
                             "quest-name": newTitle.textContent,
                             "quest-priority":
-                                newPriority.querySelector("p").textContent,
+                                priorityColor.getAttribute("data-priority"),
                         };
                         board.splice(idx, 1, updatedQuest);
                         localStorage.setItem(
@@ -182,26 +214,37 @@ export default function refreshQuests() {
                     );
                 }
             } else {
+                minMax.classList.add("edit-mode");
                 editIcon.innerHTML = questIcons.check;
                 e.currentTarget.classList.add("check-icon");
+                const undo = document.createElement("div");
+                undo.innerHTML = questIcons.undo;
+                undo.classList.add("quest-action", "undo-icon");
+                editIcon.parentNode.insertBefore(undo, editIcon);
                 let title = elm.querySelector("h3");
                 let desc = elm.querySelector("p.quest-desc");
                 let date = elm.querySelector("p.quest-due");
-                let priorityElm = elm.querySelector(".pb-wrapper > div");
-                let priority = priorityElm.querySelector("p").textContent;
+                let priority = elm
+                    .querySelector(".side-color")
+                    .getAttribute("data-priority");
+                let wrapper = elm.querySelector(".quest-desc-wrapper");
                 const titleInput = document.createElement("input");
                 titleInput.setAttribute("type", "text");
                 titleInput.setAttribute("value", title.textContent);
+                titleInput.setAttribute("minlength", "3");
+                titleInput.setAttribute("maxlength", "50");
                 titleInput.classList.add("title-edit");
                 const descInput = document.createElement("textarea");
                 descInput.classList.add("desc-edit");
                 descInput.setAttribute("rows", "5");
-                descInput.setAttribute("cols", "40");
+                descInput.setAttribute("cols", "32");
                 descInput.value = desc.textContent;
                 const dateInput = datePicker();
                 dateInput.classList.add("quest-due");
                 dateInput.value = date.textContent;
                 const pInput = priorityPicker();
+                pInput.classList.add("priority-edit");
+                let pr;
                 if (priority == "Medium") {
                     pInput.querySelectorAll("option")[1].selected = true;
                 } else if (priority == "High") {
@@ -210,30 +253,24 @@ export default function refreshQuests() {
                 title.parentNode.replaceChild(titleInput, title);
                 desc.parentNode.replaceChild(descInput, desc);
                 date.parentNode.replaceChild(dateInput, date);
-                priorityElm.parentNode.replaceChild(pInput, priorityElm);
+                descInput.parentNode.insertBefore(
+                    pInput,
+                    descInput.nextSibling
+                );
+                wrapper.style.maxHeight = "100%";
             }
         });
 
-        actions.append(edit);
-        actions.classList.add("flex-r", "ma-l", "fg-5");
-        timeWrapper.append(tIcon, questDue, actions);
+        editBar.appendChild(edit);
+        boardAndEdit.append(questBoard, editBar);
+        questDescWrapper.append(questDesc, boardAndEdit);
 
-        const questDesc = document.createElement("p");
-        questDesc.classList.add("quest-desc");
-        questDesc.textContent = thisBoard[i]["quest-desc"];
-
-        const priorityAndBoard = document.createElement("div");
-        priorityAndBoard.classList.add("pb-wrapper");
-        const questBoard = document.createElement("p");
-        questBoard.textContent = thisBoard[i]["quest-board"];
-        priorityAndBoard.append(questBoard);
         questContainer.append(
             headerActions,
             sideColor,
             questName,
             timeWrapper,
-            questDesc,
-            priorityAndBoard
+            questDescWrapper
         );
         questWrapper.appendChild(questContainer);
     }
