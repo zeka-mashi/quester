@@ -93,6 +93,11 @@ function editEvent(elm) {
                     newDate.textContent < new Date().toISOString().split("T")[0]
                 ) {
                     newDate.parentElement.classList.add("overdue");
+                    newDate.parentElement.firstChild.innerHTML =
+                        questIcons.overdue;
+                } else {
+                    newDate.parentElement.firstChild.innerHTML =
+                        questIcons.clock;
                 }
                 priorityInput.remove();
 

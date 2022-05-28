@@ -61,15 +61,16 @@ export default function refreshQuests() {
         const timeWrapper = document.createElement("div");
         timeWrapper.classList.add("inline-wrapper", "fg-5");
         const tIcon = document.createElement("span");
-        tIcon.innerHTML = questIcons.clock;
         const questDue = document.createElement("p");
         questDue.textContent = thisBoard[i]["date-picker"];
         questDue.classList.add("quest-due");
-
-        timeWrapper.append(tIcon, questDue);
         if (questDue.textContent < curDate) {
             timeWrapper.classList.add("overdue");
+            tIcon.innerHTML = questIcons.overdue;
+        } else {
+            tIcon.innerHTML = questIcons.clock;
         }
+        timeWrapper.append(tIcon, questDue);
 
         const questDescWrapper = document.createElement("div");
         questDescWrapper.classList.add("quest-desc-wrapper");
