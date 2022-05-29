@@ -19,7 +19,7 @@ export default function home() {
     description.innerHTML = `Quester is a #todo web app to manage your todo items. 
     To put a small spin on it, they're called <b>quests</b> and are assigned to 
     <b>adventure boards</b>. Don't worry if you aren't familiar with RPG terms -- 
-    it's simply to-dos grouped by categories.<br><br>Quester features some helpful 
+    it's simply todo items grouped by categories.<br><br>Quester features some helpful 
     features that makes your questing easier: change up todos with full 
     <b>editing</b> functionality and see everything in <b>clean views</b>!<br><br>
     This is your Home. You can see all your quests from all your active boards here.

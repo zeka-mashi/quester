@@ -10,7 +10,7 @@ export default function boardModal() {
 
     const header = document.createElement("h2");
     wrapper.appendChild(header);
-    header.textContent = "New #Todo Board";
+    header.textContent = "New Adventure Board";
     header.classList.add("ctr", "mtb-10");
 
     const formWrapper = document.createElement("form");

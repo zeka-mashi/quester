@@ -12,7 +12,7 @@ export default function questModal() {
 
     const header = document.createElement("h2");
     wrapper.appendChild(header);
-    header.textContent = "New #Todo";
+    header.textContent = "New Quest";
     header.classList.add("ctr", "mtb-10");
 
     const formWrapper = document.createElement("form");
@@ -23,7 +23,7 @@ export default function questModal() {
     formWrapper.appendChild(nameWrapper);
     nameWrapper.classList.add("input-wrapper", "flex-c");
     const inputName = document.createElement("label");
-    inputName.textContent = "Todo Name";
+    inputName.textContent = "Quest Name";
     inputName.setAttribute("for", "quest-name");
 
     const inputField = document.createElement("input");
@@ -113,7 +113,7 @@ export default function questModal() {
     btn.classList.add("modal-btn");
     btn.setAttribute("type", "submit");
     btn.setAttribute("form", "new-quest");
-    btn.setAttribute("value", "Add Todo");
+    btn.setAttribute("value", "Add Quest");
     formWrapper.addEventListener("submit", function (e) {
         var thisBoard = JSON.parse(localStorage.getItem(board)) || [];
         e.preventDefault();
