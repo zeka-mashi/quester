@@ -34,11 +34,6 @@ export default function boardModal() {
 
     nameWrapper.append(inputName, inputField);
 
-    const errMsg = document.createElement("p");
-    errMsg.classList.add("modal-errmsg", "hide");
-    errMsg.textContent = "That's awkward... the board already exists!";
-    formWrapper.appendChild(errMsg);
-
     const btn = document.createElement("input");
     wrapper.appendChild(btn);
     btn.classList.add("modal-btn");
@@ -50,14 +45,16 @@ export default function boardModal() {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());
         const index = allBoards.indexOf(data["board-name"]);
-        if (index < 0) {
+        if (data["board-name"].toLowerCase() == "home") {
+            alert("Well that's awkward... you can't add your home board!");
+        } else if (index < 0) {
             allBoards.push(data["board-name"]);
             localStorage.setItem("boards", JSON.stringify(allBoards));
             modal.remove();
 
             refreshSidebar(allBoards);
         } else {
-            errMsg.classList.remove("hide");
+            alert("That board already exists!");
         }
     });
 

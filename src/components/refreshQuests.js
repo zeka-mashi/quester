@@ -16,7 +16,7 @@ export default function refreshQuests() {
     container.append(questWrapper);
 
     var thisBoard = getAllQuests(board);
-    let curDate = new Date().toISOString().split("T")[0];
+    let curDate = new Date().toLocaleDateString("en-CA");
 
     for (let i = 0; i < thisBoard.length; i++) {
         const questContainer = document.createElement("div");
@@ -67,6 +67,8 @@ export default function refreshQuests() {
         if (questDue.textContent < curDate) {
             timeWrapper.classList.add("overdue");
             tIcon.innerHTML = questIcons.overdue;
+        } else if (questDue.textContent > curDate) {
+            tIcon.innerHTML = questIcons.future;
         } else {
             tIcon.innerHTML = questIcons.clock;
         }

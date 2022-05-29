@@ -208,9 +208,8 @@ a {
     font-family: sans-serif;
     justify-content: center;
     height: 100%;
+    margin-top: 50px;
     text-align: center;
-    text-shadow: 1px 1px 5px white, -1px -1px 5px white, 1px -1px 5px white,
-        -1px 1px 5px white;
 }
 
 .home-header {
@@ -224,7 +223,7 @@ a {
 }
 
 .body-wrapper {
-    margin: 40px 20% 0 20%;
+    margin: 40px 10% 0 10%;
 }
 
 .modal {
@@ -466,12 +465,6 @@ a {
 
 .modal-btn {
     height: 50px;
-}
-
-.modal-errmsg {
-    margin-top: 20px;
-    font-size: 14px;
-    color: red;
 }
 
 .hide {

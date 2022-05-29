@@ -89,12 +89,15 @@ function editEvent(elm) {
                 titleInput.parentNode.replaceChild(newTitle, titleInput);
                 descInput.parentNode.replaceChild(newDesc, descInput);
                 dateInput.parentNode.replaceChild(newDate, dateInput);
-                if (
-                    newDate.textContent < new Date().toISOString().split("T")[0]
-                ) {
+
+                const curDate = new Date().toLocaleDateString("en-CA");
+                if (newDate.textContent < curDate) {
                     newDate.parentElement.classList.add("overdue");
                     newDate.parentElement.firstChild.innerHTML =
                         questIcons.overdue;
+                } else if (newDate.textContent > curDate) {
+                    newDate.parentElement.firstChild.innerHTML =
+                        questIcons.future;
                 } else {
                     newDate.parentElement.firstChild.innerHTML =
                         questIcons.clock;

@@ -39,10 +39,6 @@ export default function sidebarItem(icon, name, dataset, isDefault) {
                     "Deleting this board will also delete all associated quests.\n\nReally delete this board? This action cannot be undone!"
                 )
             ) {
-                const main = document.getElementsByClassName("main")[0];
-                main.setAttribute("data-board", "home");
-                runSidebarChecks();
-
                 let elm;
                 if (e.target.tagName == "path") {
                     elm = e.target.parentElement.parentElement.parentElement;
@@ -59,6 +55,9 @@ export default function sidebarItem(icon, name, dataset, isDefault) {
                     allBoards.splice(index, 1);
                 }
                 localStorage.setItem("boards", JSON.stringify(allBoards));
+                const main = document.getElementsByClassName("main")[0];
+                main.setAttribute("data-board", "home");
+                runSidebarChecks();
                 refreshSidebar(allBoards);
             }
         });

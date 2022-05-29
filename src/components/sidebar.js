@@ -16,10 +16,10 @@ export default function sidebar() {
     side.appendChild(responsiveMenu);
 
     const header = document.createElement("h1");
-    header.textContent = "#Todo";
+    header.textContent = "Quester";
 
     const subheader = document.createElement("h5");
-    subheader.textContent = '"I\'ll remember to do this... right?"';
+    subheader.textContent = "For all your #todo items";
 
     const headerWrapper = document.createElement("div");
     headerWrapper.classList.add("sidebar-header");
@@ -31,7 +31,7 @@ export default function sidebar() {
     addWrapper.classList.add("add-function");
 
     const newQuest = document.createElement("div");
-    newQuest.innerHTML = sidebarIcons.plus + "New Todo";
+    newQuest.innerHTML = sidebarIcons.plus + "New Quest";
     newQuest.addEventListener("click", addQuest);
     newQuest.classList.add("new-func", "disabled");
     addWrapper.appendChild(newQuest);

@@ -94,7 +94,6 @@ export default function questModal() {
 
     const dropdownInput = document.createElement("select");
     dropdownInput.setAttribute("id", "quest-board");
-    dropdownInput.disabled = true;
 
     //get current board
     const board = document
