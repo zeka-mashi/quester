@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const config = {
     entry: {
         index: "./src/index.js",
-        sidebar: "./src/components/sidebar.js",
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -23,7 +22,7 @@ const config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "Quester - RPG Todo App",
+            title: "Quester - A Todo App",
         }),
     ],
 };
